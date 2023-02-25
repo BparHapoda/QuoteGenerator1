@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.client.ClientController">
+
+    <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 10 10 10 10;">
+        <HBox alignment="CENTER"
+              style="-fx-font-size:30; -fx-padding: 10 10 10 10;"
+              VBox.vgrow="ALWAYS" minHeight="250">
+            <Text fx:id="citate" wrappingWidth="400" textAlignment="CENTER"
+                  style="-fx-end-margin:auto;">
+                Нажмите кнопку ,чтобы получить цитату известного человека
+            </Text>
+
+        </HBox>
+        <HBox alignment="CENTER">
+            <Button style="-fx-font-size: 30; -fx-background-color: transparent;-fx-border-color: gray;" minWidth="600" alignment="CENTER" minHeight="100" text="Новая цитата"
+                    onAction="#onClick"/>
+        </HBox>
+    </VBox>
+
+
+</VBox>

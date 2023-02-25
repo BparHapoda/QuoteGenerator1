@@ -1,6 +1,7 @@
 package com.example.client;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -14,7 +15,10 @@ import java.net.UnknownHostException;
 
 public class ClientController {
 
-
+    @FXML
+    private Button btn;
+    @FXML
+    private HBox div;
     @FXML
     private Text citate;
 
@@ -25,6 +29,12 @@ public class ClientController {
 
     @FXML
     public void onClick() {
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        btn.setDisable(true);
         if (!connected) {
             connectWithServer();
         }
@@ -33,7 +43,15 @@ public class ClientController {
             String string;
             while (true) {
                 string = in.readUTF();
+                if (string.startsWith("@break")) {
+                    citate.setStyle("-fx-text-fill: red");
+                    citate.setText("Количество бесплатных цитат превышено");
+                    in.close();
+                    out.close();
+                    return;
+                }
                 if (string.startsWith("@citate ")) {
+                    out.writeUTF("@logMessage " + string.substring(8));
                     citate.setText(string.substring(8));
                     break;
                 }
@@ -44,7 +62,7 @@ public class ClientController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        btn.setDisable(false);
     }
 
     public void connectWithServer() {
@@ -70,7 +88,6 @@ public class ClientController {
         }
 
         connected = true;
-
 
 
     }

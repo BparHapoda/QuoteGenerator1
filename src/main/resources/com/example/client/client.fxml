@@ -11,8 +11,8 @@
       fx:controller="com.example.client.ClientController">
 
     <VBox VBox.vgrow="ALWAYS" style="-fx-padding: 10 10 10 10;">
-        <HBox alignment="CENTER"
-              style="-fx-font-size:30; -fx-padding: 10 10 10 10;"
+        <HBox fx:id="div" alignment="CENTER"
+              style="-fx-font-size:40; -fx-padding: 10 10 10 10;"
               VBox.vgrow="ALWAYS" minHeight="250">
             <Text fx:id="citate" wrappingWidth="400" textAlignment="CENTER"
                   style="-fx-end-margin:auto;">
@@ -21,7 +21,7 @@
 
         </HBox>
         <HBox alignment="CENTER">
-            <Button style="-fx-font-size: 30; -fx-background-color: transparent;-fx-border-color: gray;" minWidth="600" alignment="CENTER" minHeight="100" text="Новая цитата"
+            <Button fx:id="btn" style="-fx-font-size: 30; -fx-background-color: transparent;-fx-border-color: gray;" minWidth="600" alignment="CENTER" minHeight="100" text="Новая цитата"
                     onAction="#onClick"/>
         </HBox>
     </VBox>

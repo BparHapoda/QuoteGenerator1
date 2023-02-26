@@ -1,10 +1,9 @@
 package com.example.client;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.DataInputStream;
@@ -14,7 +13,10 @@ import java.net.Socket;
 
 
 public class ClientController {
-
+    @FXML
+    private VBox citateWindow;
+    @FXML
+    private VBox loginWindow;
     @FXML
     private Button btn;
     @FXML
@@ -26,6 +28,10 @@ public class ClientController {
     private DataInputStream in;
     private String name;
     private boolean connected;
+    @FXML
+    private TextField loginW;
+    @FXML
+    private TextField password;
 
     @FXML
     public void onClick() {
@@ -69,7 +75,7 @@ public class ClientController {
 
         Socket socket = null;
         try {
-           socket = new Socket("localhost", 7777);
+            socket = new Socket("localhost", 7777);
         } catch (IOException e) {
             throw new RuntimeException("Подключение невозможно");
 
@@ -96,6 +102,57 @@ public class ClientController {
     public void disconnect() throws IOException {
         in.close();
         out.close();
+    }
+
+    @FXML
+    public void checkLogin() {
+
+        if (!this.connected) {
+            connectWithServer();
+        }
+
+
+        String login = loginW.getText();
+        String pass = password.getText();
+        try {
+            out.writeUTF("@checkLogin " + login + " " + pass);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String req;
+        while (true) {
+            try {
+                req = in.readUTF();
+                System.out.println(req);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (req.equals("@login_ok")) {
+                loginWindow.setManaged(false);
+                loginWindow.setVisible(false);
+                citateWindow.setManaged(true);
+                citateWindow.setVisible(true);
+                break;
+            }
+
+            if (req.equals("@login_bad")) {
+                Alert alert=new Alert(Alert.AlertType.CONFIRMATION,"Неправильный пароль");
+alert.showAndWait();
+                return;
+            }
+
+        }
+    }
+
+    @FXML
+    public void register() {
+        String pass = password.getText();
+        String login = loginW.getText();
+        try {
+            out.writeUTF("@regLogin " + login + " " + pass);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

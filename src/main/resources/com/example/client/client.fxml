@@ -8,14 +8,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.client.ClientController">
     <VBox fx:id="loginWindow" visible="true" managed="true">
         <HBox>
             <TextField fx:id="loginW" minWidth="400" minHeight="40" alignment="CENTER"
-                       style="-fx-font-size: 25" promptText="Имя пользователя"></TextField>
-            <TextField fx:id="password" minWidth="400" style="-fx-font-size: 25" alignment="CENTER"
-                       minHeight="40" promptText="пароль" text="secret"></TextField>
+                       style="-fx-font-size: 25" promptText="Имя пользователя"
+            focusTraversable="false"></TextField>
+            <PasswordField fx:id="password" minWidth="400" style="-fx-font-size: 25" alignment="CENTER"
+                       minHeight="40" promptText="пароль" text="" focusTraversable="false"></PasswordField>
         </HBox>
         <HBox>
             <Button minWidth="400" onAction="#register" minHeight="40">Регистрация</Button>

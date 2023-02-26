@@ -31,7 +31,7 @@ public class ClientController {
     @FXML
     private TextField loginW;
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     public void onClick() {

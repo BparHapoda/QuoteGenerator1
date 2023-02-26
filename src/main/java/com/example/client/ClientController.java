@@ -11,7 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
 
 public class ClientController {
 
@@ -69,9 +69,10 @@ public class ClientController {
 
         Socket socket = null;
         try {
-            socket = new Socket("localhost", 7777);
+           socket = new Socket("localhost", 7777);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Подключение невозможно");
+
         }
 
         try {
@@ -87,7 +88,7 @@ public class ClientController {
             throw new RuntimeException(e);
         }
 
-        connected = true;
+        this.connected = true;
 
 
     }
